@@ -3,6 +3,24 @@ Modulo RecargaYa: calculo del valor final de recargas de celular.
 Construido con TDD - ciclos Red-Green-Refactor.
 """
 
+from dataclasses import dataclass
+
+
+@dataclass
+class ResultadoRecarga:
+    """Resultado de calcular una recarga. Inmutable por convencion."""
+
+    monto: int
+    porcentaje_bonus: float
+    datos_bonus: float
+
+    def to_dict(self) -> dict:
+        return {
+            "monto": self.monto,
+            "porcentaje_bonus": self.porcentaje_bonus,
+            "datos_bonus": self.datos_bonus,
+        }
+
 
 class ModuloRecarga:
     """Calcula recargas y bonificaciones de datos para RecargaYa S.A.S."""
@@ -33,8 +51,8 @@ class ModuloRecarga:
         if premium and porcentaje_bonus > 0:
             porcentaje_bonus += self.BONUS_PREMIUM_ADICIONAL
         datos_bonus = monto * (porcentaje_bonus / 100)
-        return {
-            "monto": monto,
-            "porcentaje_bonus": porcentaje_bonus,
-            "datos_bonus": datos_bonus,
-        }
+        return ResultadoRecarga(
+            monto=monto,
+            porcentaje_bonus=porcentaje_bonus,
+            datos_bonus=datos_bonus,
+        ).to_dict()
