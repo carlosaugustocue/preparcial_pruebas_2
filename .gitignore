@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+
+# Pytest
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Locust resultados
+tests/performance/results*.csv
+
+# IDEs
+.vscode/
+.idea/
