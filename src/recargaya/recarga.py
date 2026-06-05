@@ -11,6 +11,7 @@ class ModuloRecarga:
     MONTO_MAXIMO = 50_000
     UMBRAL_BONUS_10 = 10_000
     UMBRAL_BONUS_25 = 30_000
+    BONUS_PREMIUM_ADICIONAL = 5.0
 
     def _validar_monto(self, monto: int) -> None:
         if monto < self.MONTO_MINIMO or monto > self.MONTO_MAXIMO:
@@ -29,6 +30,8 @@ class ModuloRecarga:
     def calcular_recarga(self, monto: int, premium: bool = False) -> dict:
         self._validar_monto(monto)
         porcentaje_bonus = self._calcular_porcentaje_bonus(monto)
+        if premium and porcentaje_bonus > 0:
+            porcentaje_bonus += self.BONUS_PREMIUM_ADICIONAL
         datos_bonus = monto * (porcentaje_bonus / 100)
         return {
             "monto": monto,
